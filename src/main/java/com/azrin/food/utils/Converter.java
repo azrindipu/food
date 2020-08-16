@@ -26,12 +26,13 @@ public class Converter {
         return user;
     }
     
-    public UserDto userEntityToUserDto(User user) throws Exception{
+    public UserDto userEntityToUserDto(User user)throws Exception{
         logger.info("start conversion from user entity to user sto");
         UserDto userDto = new UserDto();
         userDto.setEmail(user.getEmail());
         userDto.setPassword(user.getPassword());
         userDto.setRoleName(user.getRoleName());
+        userDto.setMongoId(user.getId());
         logger.info("Conversion finished");
         return userDto;
     }

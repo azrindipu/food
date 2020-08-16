@@ -10,10 +10,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.validation.constraints.Email;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.*;
 
 @Getter
 @Setter
@@ -23,7 +20,7 @@ import javax.validation.constraints.NotNull;
 public class UserDto {
 
     @JsonProperty("email")
-    @NotEmpty(message = ValidationMessage.EMAIL_CAN_NOT_BE_EMPTY)
+    @NotBlank(message = ValidationMessage.EMAIL_CAN_NOT_BE_EMPTY)
     @NotNull(message = ValidationMessage.EMAIL_CAN_NOT_BE_NULL)
     @Email(message = ValidationMessage.INVALID_EMAIL)
     @ApiModelProperty(required = true, example = "xyz@gmail.com")
@@ -41,5 +38,8 @@ public class UserDto {
     @NotNull(message = ValidationMessage.ROLE_CAN_NOT_BE_NULL)
     @ApiModelProperty(required = true, example = "user")
     private String roleName;
+
+    @JsonProperty("mongo_id")
+    private String mongoId;
 
 }

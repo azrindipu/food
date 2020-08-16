@@ -56,7 +56,7 @@ public class LoginController {
 		JSONObject responseBody = new JSONObject();
 		responseBody.put(Constants.RESPONSE_BODY_DATA, token);
 		responseBody.put(Constants.RESPONSE_BODY_STATUS, HttpStatus.OK);
-		responseBody.put(Constants.RESPONSE_BODY_MESSAGE, Constants.MESSAGE_SUCCESSFUL);
+		responseBody.put(Constants.RESPONSE_BODY_ERROR_MESSAGE, Constants.MESSAGE_ERROR);
 
 		logger.info(responseBody.toString());
 		return ResponseEntity.ok(responseBody);
