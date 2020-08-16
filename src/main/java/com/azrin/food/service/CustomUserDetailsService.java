@@ -1,5 +1,6 @@
 package com.azrin.food.service;
 
+import com.azrin.food.ExceptionHandler.BadRequest;
 import com.azrin.food.repository.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,7 +28,7 @@ public class CustomUserDetailsService implements UserDetailsService {
 		logger.info(username);
 		com.azrin.food.model.User user = userRepository.findByEmail(username);
 		if(user == null){
-			throw new UsernameNotFoundException("Invalid username or password.");
+			throw new BadRequest("Invalid username or password.");
 		}
 		return new User(user.getEmail(), user.getPassword(), getRole(user));
 	}

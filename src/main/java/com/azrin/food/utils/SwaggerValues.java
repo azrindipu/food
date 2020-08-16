@@ -26,4 +26,11 @@ public class SwaggerValues {
     public static final String USER_CONTROLLER_USERS_GET_BY_ID_VALUE = "Get user";
     public static final String USER_CONTROLLER_USERS_GET_BY_ID_NOTES = "Get user by ID";
     public static final int USER_CONTROLLER_USER_GET_BY_ID_POSSITION = 4;
+
+    /*----------------------------- login controller ------------------------*/
+    public static final String LOGIN_CONTROLLER_VALUE = "Login";
+
+    public static final String LOGIN_CONTROLLER_LOGIN_POST_VALUE = "Login user";
+    public static final String LOGIN_CONTROLLER_LOGIN_POST_NOTES = "Login";
+    public static final int Login_CONTROLLER_Login_POST_POSSITION = 1;
 }
