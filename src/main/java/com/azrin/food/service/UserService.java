@@ -1,8 +1,11 @@
 package com.azrin.food.service;
 
+import com.azrin.food.ExceptionHandler.AlreadyExist;
 import com.azrin.food.ExceptionHandler.BadRequest;
 import com.azrin.food.ExceptionHandler.InternalServerError;
+import com.azrin.food.ExceptionHandler.NotFound;
 import com.azrin.food.dto.PageInfoDto;
+import com.azrin.food.dto.UserDto;
 import com.azrin.food.model.User;
 import com.azrin.food.repository.UserRepository;
 import com.azrin.food.utils.Constants;
@@ -43,31 +46,44 @@ public class UserService {
 
     public User createUser(User user) throws Exception{
         logger.info("Called service and start validation.");
-        validate.isRoleValid(user.getRoleName());
-        validate.isUserExist(user.getEmail());
+        if(!validate.isRoleValid(user.getRoleName())){
+            throw new BadRequest(ExceptionMessage.INVALID_ROLE_NAME);
+        }
+        if(validate.isUserExist(user.getEmail())) {
+            throw new AlreadyExist(ExceptionMessage.USER_ALREADY_EXIST);
+        }
         logger.info("Validation finished and going to DAO layer.");
         return userRepository.saveUser(user);
     }
 
-    public List<User> getUsers(PageInfoDto pageInfoDto, int pageNumber, int pageSize){
-        if(pageNumber < 0){
-            pageNumber = Integer.parseInt(defaultPageNumber);
+    public User getUserById(String mongoId) throws Exception{
+        if(!validate.isStringValid(mongoId)){
+            throw new BadRequest(ExceptionMessage.INVALID_MONGO_ID);
         }
-        if(pageNumber < 0){
-            pageSize = Integer.parseInt(defaultPageSize);
+        User user = userRepository.getUserById(mongoId);
+        if(user == null){
+            throw new NotFound(ExceptionMessage.USER_NOT_FOUND);
         }
-        if(pageSize > Integer.parseInt(pageSizeMax)){
+        return user;
+    }
+
+    public List<User> getUsers(PageInfoDto pageInfoDto, String pageNumber, String pageSize) throws Exception{
+
+        int pageN = Integer.parseInt(defaultPageNumber);
+        int pageS = Integer.parseInt(defaultPageSize);
+        if(pageNumber != null && !pageNumber.equalsIgnoreCase("") && !pageNumber.trim().equalsIgnoreCase("")){
+            pageN = Integer.parseInt(pageNumber);
+        }
+        if(pageSize != null && !pageSize.equalsIgnoreCase("") && !pageSize.trim().equalsIgnoreCase("")){
+            pageS = Integer.parseInt(pageSize);
+        }
+        if(pageS > Integer.parseInt(pageSizeMax)){
             throw new BadRequest(ExceptionMessage.MAX_PAGE_SIZE+pageSizeMax);
         }
         Page pagableData = null;
         List<User> users = new ArrayList<>();
-        Pageable pageable = PageRequest.of(pageNumber, pageSize, Sort.Direction.ASC, Constants.EMAIL);
-        try {
-            pagableData = userRepository.getUsers(pageable);
-        }catch (Exception e){
-            throw new InternalServerError(ExceptionMessage.INTERNAL_SERVER_ERROR);
-        }
-
+        Pageable pageable = PageRequest.of(pageN, pageS, Sort.Direction.ASC, Constants.EMAIL);
+        pagableData = userRepository.getUsers(pageable);
         if(pagableData != null){
             users.addAll(pagableData.getContent());
             pageInfoDto.setFirst(pagableData.isFirst());
@@ -82,8 +98,12 @@ public class UserService {
     }
 
     public boolean deleteUser(String mongoId) throws Exception{
-        validate.isIdValid(mongoId);
-        validate.isValidUserToDelete(mongoId);
+        if(!validate.isStringValid(mongoId)){
+            throw new BadRequest(ExceptionMessage.INVALID_MONGO_ID);
+        }
+        if(!validate.isValidUserToDelete(mongoId)){
+            throw new NotFound(ExceptionMessage.USER_NOT_FOUND);
+        }
         boolean result = false;
         try {
             result = userRepository.deleteUser(mongoId);

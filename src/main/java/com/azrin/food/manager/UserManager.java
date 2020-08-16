@@ -28,7 +28,7 @@ public class UserManager {
         return converter.userEntityToUserDto(userService.createUser(converter.userDtoToUserEntity(userDto)));
     }
 
-    public List<UserDto> getUsers(PageInfoDto pageInfoDto, int pageNumber, int pageSize)throws Exception{
+    public List<UserDto> getUsers(PageInfoDto pageInfoDto, String pageNumber, String pageSize)throws Exception{
         List<UserDto> userDtos = new ArrayList<>();
         List<User> users = userService.getUsers(pageInfoDto, pageNumber, pageSize);
         if(users != null){
@@ -41,5 +41,11 @@ public class UserManager {
 
     public boolean deleteUser(String mongoId) throws Exception{
         return userService.deleteUser(mongoId);
+    }
+
+    public UserDto getUserById(String mongoId) throws Exception{
+        User user = userService.getUserById(mongoId);
+        UserDto userDto = converter.userEntityToUserDto(user);
+        return userDto;
     }
 }

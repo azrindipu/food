@@ -23,5 +23,7 @@ public class SwaggerValues {
     public static final String USER_CONTROLLER_USERS_DELETE_NOTES = "Delete User";
     public static final int USER_CONTROLLER_USER_DELETE_POSSITION = 3;
 
-
+    public static final String USER_CONTROLLER_USERS_GET_BY_ID_VALUE = "Get user";
+    public static final String USER_CONTROLLER_USERS_GET_BY_ID_NOTES = "Get user by ID";
+    public static final int USER_CONTROLLER_USER_GET_BY_ID_POSSITION = 4;
 }

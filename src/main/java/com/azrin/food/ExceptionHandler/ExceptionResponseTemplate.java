@@ -12,7 +12,7 @@ import java.util.List;
 @Getter
 @NoArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class ExceptionResponseTemplate extends RuntimeException{
+public class ExceptionResponseTemplate{
 
     @JsonProperty("time")
     private String time;

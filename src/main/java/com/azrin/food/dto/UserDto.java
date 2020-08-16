@@ -40,6 +40,7 @@ public class UserDto {
     private String roleName;
 
     @JsonProperty("mongo_id")
+    @ApiModelProperty(required = false, hidden = true)
     private String mongoId;
 
 }

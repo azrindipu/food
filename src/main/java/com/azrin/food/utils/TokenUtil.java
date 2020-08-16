@@ -51,7 +51,7 @@ public class TokenUtil {
 		return expiration.before(new Date());
 	}
 
-	public String generateToken(UserDetails userDetails) {
+	public String generateToken(UserDetails userDetails) throws Exception{
 		logger.info("Called token util");
 		Map<String, Object> claims = new HashMap<>();
 		User user = userRepository.findByEmail(userDetails.getUsername());

@@ -18,6 +18,16 @@ public class CustomExceptionHandler extends ResponseEntityExceptionHandler {
     private String datePattern = "yyyy-MM-dd HH:mm";
     private SimpleDateFormat simpleDateFormat = new SimpleDateFormat(datePattern);
 
+    @ExceptionHandler(ControllerLevelException.class)
+    public final ResponseEntity<Object> controllerLevelException(ControllerLevelException controllerLevelException,
+                                                                 WebRequest request){
+        logger.info("Controller level exception");
+        ExceptionResponseTemplate response = new ExceptionResponseTemplate(simpleDateFormat.format(new Date()),
+                controllerLevelException.getMessage(),
+                controllerLevelException.getErrors());
+
+        return new ResponseEntity(response, HttpStatus.BAD_REQUEST);
+    }
 
     @ExceptionHandler(AlreadyExist.class)
     public final ResponseEntity<Object> alreadyExistException(AlreadyExist alreadyExist, WebRequest request){

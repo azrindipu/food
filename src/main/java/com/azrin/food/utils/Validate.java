@@ -1,9 +1,6 @@
 package com.azrin.food.utils;
 
-
-import com.azrin.food.ExceptionHandler.AlreadyExist;
 import com.azrin.food.ExceptionHandler.BadRequest;
-import com.azrin.food.ExceptionHandler.NotFound;
 import com.azrin.food.model.User;
 import com.azrin.food.repository.UserRepository;
 import org.slf4j.Logger;
@@ -18,34 +15,52 @@ public class Validate {
     @Autowired
     private UserRepository userRepository;
 
-    public boolean isRoleValid(String roleName) throws Exception{
+    public boolean isRoleValid(String roleName){
         logger.info("role name: "+roleName);
         if(roleName.equalsIgnoreCase(RoleType.ROLE_ADMIN) ||
                 roleName.equalsIgnoreCase(RoleType.ROLE_USER) ||
                 roleName.equalsIgnoreCase(RoleType.ROLE_MANAGER)){
             return true;
         }
-        throw new BadRequest(ExceptionMessage.INVALID_ROLE_NAME);
+        return false;
     }
 
-    public void isUserExist(String email){
+    public boolean isUserExist(String email) throws Exception{
         logger.info("email: "+email);
         User user = userRepository.findByEmail(email);
         if(user != null){
-            throw new AlreadyExist(ExceptionMessage.USER_ALREADY_EXIST);
+            return true;
         }
+        return false;
     }
 
     public void isIdValid(String string){
         if(string == null || string.equalsIgnoreCase("")){
             throw new BadRequest(ExceptionMessage.INVALID_MONGO_ID);
         }
+        else if(string != null){
+            string = string.trim();
+            if(string == null || string.equalsIgnoreCase("")){
+                throw new BadRequest(ExceptionMessage.INVALID_MONGO_ID);
+            }
+        }
     }
 
-    public void isValidUserToDelete(String mongoId){
+    public boolean isValidUserToDelete(String mongoId) throws Exception{
         User user = userRepository.findById(mongoId);
         if(user == null){
-            throw new NotFound(ExceptionMessage.USER_NOT_FOUND);
+            return false;
         }
+        return true;
+    }
+
+    public boolean isStringValid(String string){
+        if(string == null || string.equalsIgnoreCase("")){
+            return false;
+        }
+        else if(string.trim().equalsIgnoreCase("")){
+            return false;
+        }
+        return true;
     }
 }

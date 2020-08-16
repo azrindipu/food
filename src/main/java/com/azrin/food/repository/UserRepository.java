@@ -34,7 +34,7 @@ public class UserRepository {
         return mongoTemplate.findOne(query, User.class);
     }
 
-    public User saveUser(User user) throws Exception{
+    public User saveUser(User user) {
         User savedUser = mongoTemplate.save(user);
         return savedUser;
     }
@@ -58,5 +58,12 @@ public class UserRepository {
             return true;
         }
         return false;
+    }
+
+    public User getUserById(String mongoId) throws Exception{
+        Query query=new Query();
+        query.addCriteria(Criteria.where(Constants._ID).is(new ObjectId(mongoId)));
+        User user = mongoTemplate.findOne(query, User.class);
+        return user;
     }
 }

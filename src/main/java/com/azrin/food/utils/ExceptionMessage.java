@@ -1,6 +1,7 @@
 package com.azrin.food.utils;
 
 public class ExceptionMessage {
+
     public static final String UNAUTHORIZED = "Unauthorized";
     public static final String USER_DISABLE = "User Disable";
     public static final String INVALID_CREDENTIALS = "Invalid Credentials";
