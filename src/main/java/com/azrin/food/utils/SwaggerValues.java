@@ -13,4 +13,10 @@ public class SwaggerValues {
     public static final String TEST_CONTROLLER_TEST_VALUE = "Test Get Request Value";
     public static final String TEST_CONTROLLER_TEST_NOTES = "Test Get Request Notes";
     public static final int TEST_CONTROLLER_TEST_POSSITION = 1;
+
+    /*----------------------------- user controller ------------------------*/
+    public static final String USER_CONTROLLER_VALUE = "Users";
+    public static final String USER_CONTROLLER_USERS_POST_VALUE = "Create user";
+    public static final String USER_CONTROLLER_USERS_POST_NOTES = "Create a particular user";
+    public static final int USER_CONTROLLER_USER_POST_POSSITION = 1;
 }
