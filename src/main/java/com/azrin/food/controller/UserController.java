@@ -5,10 +5,7 @@ import com.azrin.food.ExceptionHandler.*;
 import com.azrin.food.dto.PageInfoDto;
 import com.azrin.food.dto.UserDto;
 import com.azrin.food.manager.UserManager;
-import com.azrin.food.utils.AllEndPoints;
-import com.azrin.food.utils.Constants;
-import com.azrin.food.utils.ExceptionMessage;
-import com.azrin.food.utils.SwaggerValues;
+import com.azrin.food.utils.*;
 import io.swagger.annotations.*;
 import org.json.simple.JSONObject;
 import org.slf4j.Logger;
@@ -18,11 +15,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -48,7 +43,7 @@ public class UserController {
             consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<JSONObject> createUser(@Valid @RequestBody final UserDto userDto,
                                                  BindingResult bindingResult)throws Exception {
-        this.checkBindingResult(bindingResult);
+        BindResultChecking.checkBindingResult(bindingResult);
         UserDto result = null;
         try {
             logger.info("Calling service");
@@ -193,16 +188,5 @@ public class UserController {
 
         logger.info(responseBody.toString());
         return ResponseEntity.ok(responseBody);
-    }
-
-    private void checkBindingResult(BindingResult bindingResult) throws Exception{
-        if(bindingResult.hasErrors()){
-            List<ObjectError> errorList = bindingResult.getAllErrors();
-            List<String> errors = new ArrayList<>();
-            for(int i = 0; i < errorList.size(); i++){
-                errors.add(errorList.get(i).getDefaultMessage());
-            }
-            throw new ControllerLevelException(ExceptionMessage.USER_INIT_VALIDATION_EXCEPTION, errors);
-        }
     }
 }

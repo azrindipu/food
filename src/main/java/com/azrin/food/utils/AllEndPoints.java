@@ -10,4 +10,7 @@ public class AllEndPoints {
 
     //login controller
     public static final String LOGIN_POST = "login";
+
+    //food controller
+    public static final String FOOD_POST = "foods";
 }

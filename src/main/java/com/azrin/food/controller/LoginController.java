@@ -22,15 +22,12 @@ import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
 @RestController
@@ -67,7 +64,7 @@ public class LoginController {
 
 		logger.info("login start: userName: "+authenticationRequest.getUsername()+" password: "
 				+authenticationRequest.getPassword());
-		this.checkBindingResult(bindingResult);
+		BindResultChecking.checkBindingResult(bindingResult);
 		logger.info("performing authentication");
 		authenticate(authenticationRequest.getUsername(), authenticationRequest.getPassword());
 		final UserDetails userDetails = jwtInMemoryUserDetailsService.loadUserByUsername(authenticationRequest.getUsername());
@@ -97,17 +94,6 @@ public class LoginController {
 		}catch (Exception e){
 			logger.info("Exception: "+e.getMessage());
 			throw new BadRequest("Invalid username or password.");
-		}
-	}
-
-	private void checkBindingResult(BindingResult bindingResult) throws Exception{
-		if(bindingResult.hasErrors()){
-			List<ObjectError> errorList = bindingResult.getAllErrors();
-			List<String> errors = new ArrayList<>();
-			for(int i = 0; i < errorList.size(); i++){
-				errors.add(errorList.get(i).getDefaultMessage());
-			}
-			throw new ControllerLevelException(ExceptionMessage.USER_INIT_VALIDATION_EXCEPTION, errors);
 		}
 	}
 }

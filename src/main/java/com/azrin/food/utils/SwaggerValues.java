@@ -33,4 +33,11 @@ public class SwaggerValues {
     public static final String LOGIN_CONTROLLER_LOGIN_POST_VALUE = "Login user";
     public static final String LOGIN_CONTROLLER_LOGIN_POST_NOTES = "Login";
     public static final int Login_CONTROLLER_Login_POST_POSSITION = 1;
+
+    /*----------------------------- food controller ------------------------*/
+    public static final String FOOD_CONTROLLER_VALUE = "food";
+
+    public static final String FOOD_CONTROLLER_POST_VALUE = "Create user";
+    public static final String FOOD_CONTROLLER_POST_NOTES = "Create a particular user";
+    public static final int FOOD_CONTROLLER_POST_POSSITION = 1;
 }
