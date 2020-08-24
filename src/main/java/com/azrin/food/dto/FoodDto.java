@@ -62,15 +62,15 @@ public class FoodDto {
     private String description;
 
     @JsonProperty("posted_by")
-    @ApiModelProperty(required = false, example = "Posted By")
+    @ApiModelProperty(required = false, hidden = true, example = "Posted By")
     private String postedBy;
 
     @JsonProperty("creation_time")
-    @ApiModelProperty(required = false, example = "Creation Time")
+    @ApiModelProperty(required = false, hidden = true, example = "Creation Time")
     private String creationTime;
 
     @JsonProperty("status")
-    @ApiModelProperty(required = false, example = "Status")
+    @ApiModelProperty(required = false, hidden = true, example = "Status, ")
     private String status;
 
 
