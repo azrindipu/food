@@ -37,7 +37,15 @@ public class SwaggerValues {
     /*----------------------------- food controller ------------------------*/
     public static final String FOOD_CONTROLLER_VALUE = "food";
 
-    public static final String FOOD_CONTROLLER_POST_VALUE = "Create user";
-    public static final String FOOD_CONTROLLER_POST_NOTES = "Create a particular user";
+    public static final String FOOD_CONTROLLER_POST_VALUE = "Create food post";
+    public static final String FOOD_CONTROLLER_POST_NOTES = "Create a particular food post";
     public static final int FOOD_CONTROLLER_POST_POSSITION = 1;
+
+    public static final String FOOD_CONTROLLER_GET_BY_ID_VALUE = "Get food post";
+    public static final String FOOD_CONTROLLER_GET_BY_ID_NOTES = "Get a particular food post";
+    public static final int FOOD_CONTROLLER_GET_BY_ID_POSSITION = 2;
+
+    public static final String FOOD_CONTROLLER_PUT_STATUS_VALUE = "Update food status";
+    public static final String FOOD_CONTROLLER_PUT_STATUS_NOTES = "Update a particular food post status";
+    public static final int FOOD_CONTROLLER_PUT_STATUS_POSSITION = 3;
 }

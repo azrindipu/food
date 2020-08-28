@@ -70,8 +70,12 @@ public class FoodDto {
     private String creationTime;
 
     @JsonProperty("status")
-    @ApiModelProperty(required = false, hidden = true, example = "Status, ")
+    @ApiModelProperty(required = false, hidden = true, example = "Status")
     private String status;
+
+    @JsonProperty("id")
+    @ApiModelProperty(required = false, hidden = true, example = "521735")
+    private String mongoId;
 
 
 }

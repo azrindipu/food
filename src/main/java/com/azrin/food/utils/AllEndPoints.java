@@ -13,4 +13,6 @@ public class AllEndPoints {
 
     //food controller
     public static final String FOOD_POST = "foods";
+    public static final String FOOD_GET_BY_ID = "foods";
+    public static final String FOOD_PUT_STATUS = "foods/status";
 }

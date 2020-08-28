@@ -101,7 +101,7 @@ public class UserService {
         if(!validate.isStringValid(mongoId)){
             throw new BadRequest(ExceptionMessage.INVALID_MONGO_ID);
         }
-        if(!validate.isValidUserToDelete(mongoId)){
+        if(!validate.isValidUser(mongoId)){
             throw new NotFound(ExceptionMessage.USER_NOT_FOUND);
         }
         boolean result = false;

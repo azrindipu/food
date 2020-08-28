@@ -8,6 +8,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Component
 public class Validate {
     private static final Logger logger = LoggerFactory.getLogger(Validate.class);
@@ -15,7 +18,7 @@ public class Validate {
     @Autowired
     private UserRepository userRepository;
 
-    public boolean isRoleValid(String roleName){
+    public boolean isRoleValid(String roleName) throws Exception{
         logger.info("role name: "+roleName);
         if(roleName.equalsIgnoreCase(RoleType.ROLE_ADMIN) ||
                 roleName.equalsIgnoreCase(RoleType.ROLE_USER) ||
@@ -34,27 +37,15 @@ public class Validate {
         return false;
     }
 
-    public void isIdValid(String string){
-        if(string == null || string.equalsIgnoreCase("")){
-            throw new BadRequest(ExceptionMessage.INVALID_MONGO_ID);
-        }
-        else if(string != null){
-            string = string.trim();
-            if(string == null || string.equalsIgnoreCase("")){
-                throw new BadRequest(ExceptionMessage.INVALID_MONGO_ID);
-            }
-        }
-    }
-
-    public boolean isValidUserToDelete(String mongoId) throws Exception{
-        User user = userRepository.findById(mongoId);
+    public boolean isValidUser(String mongoId) throws Exception{
+        User user = userRepository.getUserById(mongoId);
         if(user == null){
             return false;
         }
         return true;
     }
 
-    public boolean isStringValid(String string){
+    public boolean isStringValid(String string) throws Exception{
         if(string == null || string.equalsIgnoreCase("")){
             return false;
         }
@@ -62,5 +53,32 @@ public class Validate {
             return false;
         }
         return true;
+    }
+
+    public boolean isValidStatus(String status){
+        List<String> allStatus = this.getAllStatus();
+        if(!allStatus.contains(status)){
+            return false;
+        }
+        return true;
+    }
+
+    public boolean isStatusOrderalid(String currentStatus, String givenStatus){
+        List<String> allStatus = this.getAllStatus();
+        int givenStatusIndex = allStatus.indexOf(givenStatus);
+        if(!allStatus.get(givenStatusIndex -1).equalsIgnoreCase(currentStatus)){
+            return false;
+        }
+        return true;
+    }
+
+    private List<String> getAllStatus(){
+        List<String> status = new ArrayList<>();
+        status.add(FoodStatus.FOOD_STATUS_CREATED);
+        status.add(FoodStatus.FOOD_STATUS_READY_TO_TAKE);
+        status.add(FoodStatus.FOOD_STATUS_ORDERED);
+        status.add(FoodStatus.FOOD_STATUS_TAKEN);
+        status.add(FoodStatus.FOOD_STATUS_WASTED);
+        return status;
     }
 }

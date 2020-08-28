@@ -3,8 +3,10 @@ package com.azrin.food.utils;
 public class ValidationMessage {
     public static final String EMAIL_CAN_NOT_BE_NULL = "Email can not be null";
     public static final String EMAIL_CAN_NOT_BE_EMPTY = "Email can not be empty";
-    public static final String POSTER_ID_CAN_NOT_BE_EMPTY = "Poster ID can not be empty";
-    public static final String POSTER_ID_CAN_NOT_BE_NULL = "Poster ID can not be null";
+    public static final String POSTER_ID_CAN_NOT_BE_EMPTY = "ID can not be empty";
+    public static final String POSTER_ID_CAN_NOT_BE_NULL = "ID can not be null";
+    public static final String STATUS_CAN_NOT_BE_EMPTY = "Status can not be empty";
+    public static final String STATUS_CAN_NOT_BE_NULL = "Status can not be null";
     public static final String INVALID_EMAIL = "Invalid email";
     public static final String PASSWORD_CAN_NOT_BE_NULL = "Password can not be null";
     public static final String PASSWORD_CAN_NOT_BE_EMPTY = "Password can not be empty";
